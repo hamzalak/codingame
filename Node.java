@@ -23,17 +23,28 @@ public static Node createNode(Integer number) {
   return new Node(number);
 }
 public Node find(int value) {
-	if(this.value == value) {
-	return this;
-}
-else if(value < this.value)
-	if(this.left != null)
-	 return this.left.find(value);
-	else return new Node();
-else
-    if(this.right != null)
-      return this.right.find(value);
-    else return new Node();
+        if(this.value == value) {
+            return this;
+        }
+        Node result  = new Node() ;
+        LinkedList<Node> q = new LinkedList<Node>() ;
+        var found = false ;
+        q.add(this) ;
+        while(!found && !q.isEmpty()){
+            var  val = q.poll() ;
+            if (val.left !=null && val.left.value ==value) {
+                found = true ;
+                result = val.left ;
+            }
+            if (val.right !=null && val.right.value ==value) {
+                found = true ;
+                result = val.right ;
+            }
+              if(val.left !=null)  q.add(val.left);
+              if(val.right !=null)  q.add(val.right);
+        }
+
+        return  result ;
 }
 public static void main(String[] args) {
 	 Node node = createNode(9);
